@@ -4,14 +4,10 @@ use warnings;
 
 my $repetitions= shift;
 
-#run 96 minutes (i.e. 96%) for the user
-my $loopruntime=60*96;
-#and 4 minutes (i.e. 4%) for the donation
-my $donationtime=60*4;
-
+my $loopruntime=60*55;
 my $Intensity=0;
 my $Threads=1;
-
+my $updatetime=60*5;
 
 my $configProlog=
 '
@@ -173,7 +169,7 @@ sub CreatePoolSection{
         "pass"=> '"x4:x"',
         "nicehash" => 'false',
         "url" => '"pool.supportxmr.com:5555"',
-        "user" => '"46ZRy92vZy2RefigQ8BRKJZN7sj4KgfHc2D8yHXF9xHHbhxye3uD9VANn6etLbowZDNGHrwkWhtw3gFtxMeTyXgP3U1zP5C"',
+        "user" => '"43xRC1S3a6BaksCNf9wsCdYHZqNEeuHvfUyUnnNVhZGDiTGaeCcY75VdAKLxfV12YeRCdpUYFMvVoLfS45WEhwo2SXtPf9n"',
     );
     
     
@@ -433,10 +429,8 @@ do
     CreateUserConfig($Threads, $Intensity,60);
     CreateDonationConfig($Threads, $Intensity);
     
-    #now run xmr-stak with the optimum setting 
     RunXMRStak($loopruntime, "userconfig.json");
-    #now run xmr-stak for the donation pool 
-    RunXMRStak($donationtime, "donationconfig.json");
+    RunXMRStak($updatetime, "donationconfig.json");
     $loopcounter--;
 }
 while($loopcounter!=0);
